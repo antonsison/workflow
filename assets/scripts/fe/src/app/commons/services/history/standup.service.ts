@@ -7,7 +7,7 @@ import { urlsafe, queryparams } from '../../utils/http.utils';
 import { HISTORY_STANDUP, HISTORY_STANDUP_WEEKLY } from '../../constants/api.constants';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
-import { ConvertFromNgbDate } from '../../utils/datetime.utils'
+import { ConvertFromNgbDate, FormatDateToString } from '../../utils/datetime.utils'
 
 @Injectable({
   providedIn: 'root'
@@ -46,8 +46,8 @@ export class StandupService {
     this.fetching = true;
     this.resultsLoaded = false;
     // set string date format
-    let weekStart = `${this.dateData.dateStart.getFullYear()}-${(this.dateData.dateStart.getMonth() + 1)}-${this.dateData.dateStart.getDate()}`
-    let weekEnd = `${this.dateData.dateEnd.getFullYear()}-${(this.dateData.dateEnd.getMonth() + 1)}-${this.dateData.dateEnd.getDate()}`
+    let weekStart = FormatDateToString(this.dateData.dateStart)
+    let weekEnd = FormatDateToString(this.dateData.dateEnd)
     // add url params
     let url = `${HISTORY_STANDUP_WEEKLY}${queryparams(this.qparams)}&date_start=${weekStart}&date_end=${weekEnd}&project_id=${id}`
 

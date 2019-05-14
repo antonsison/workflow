@@ -43,7 +43,17 @@ export function GetMonthFirstLastDate(date:Date, interval:number){
     return MonthFirstLastDate
 }
 
+export function FormatDateToString(date:Date){
+    // returns date string in YYYY-MM-dd format
+    return `${date.getFullYear()}-${(date.getMonth() + 1)}-${date.getDate()}`
+}
+
 export function ConvertFromNgbDate(date:NgbDate){
     // convert NgbDate into Date
     return new Date(date.year, date.month-1, date.day);
+}
+
+export function ConvertToNgbDate(date:Date){
+    // convert NgbDate into Date
+    return new NgbDate(date.getFullYear(), (date.getMonth() + 1), date.getDate());
 }

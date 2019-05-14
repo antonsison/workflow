@@ -5,7 +5,8 @@ import { NavService } from '../../../commons/services/utils/nav.service';
 import { ProjectService } from '../../../commons/services/project/project.service'
 import { BreadcrumbsService } from '../../../commons/services/utils/breadcrumbs.service'
 
-import { DateRange, GetPreviousDate, GetMonthFirstLastDate, ConvertFromNgbDate } from '../../../commons/utils/datetime.utils'
+import { DateRange, GetPreviousDate, GetMonthFirstLastDate, 
+  ConvertFromNgbDate, ConvertToNgbDate, FormatDateToString } from '../../../commons/utils/datetime.utils'
 
 import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 
@@ -204,6 +205,20 @@ export class ProjectDetailComponent implements OnInit {
     this.standupservice.setDateData(this.fromDate, this.toDate);
     // re-initialize Weekly Report data and query parameters
     this.updateWeeklyReport();
+  }
+
+  clicked($event){
+    let weekStart = FormatDateToString(ConvertFromNgbDate(this.fromDate))
+    let weekEnd =  FormatDateToString(ConvertFromNgbDate(this.toDate))
+
+    
+    if (this.standupservice.q.length){
+      console.log(weekStart)
+      console.log(weekEnd)
+    }
+    else{
+      console.log('no content')
+    }
   }
 
   @HostListener('scroll', ['$event']) 
