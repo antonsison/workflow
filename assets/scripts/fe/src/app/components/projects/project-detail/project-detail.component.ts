@@ -215,6 +215,15 @@ export class ProjectDetailComponent implements OnInit {
     if (this.standupservice.q.length){
       console.log(weekStart)
       console.log(weekEnd)
+
+      this.standupservice.downloadReport(this.state.params.id).subscribe(
+        data => {
+          console.log(data)
+        },
+        error => {
+          console.log(error)
+        }
+      )
     }
     else{
       console.log('no content')

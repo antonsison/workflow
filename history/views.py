@@ -84,3 +84,20 @@ class ProjectBlockers(Query, ViewSet):
         project = Project.objects.get(**kwargs)
         serializer = BlockerSerializer(Blocker.objects.filter(standup__in=project.standup_set.all(), is_fixed=False), many=True)
         return Response(serializer.data, status=200)
+
+class ProjectReport(Query, ViewSet):
+    
+    serializer_class = ShortStandupProjectSerializer
+
+    def get(self, *args, **kwargs):
+        dt_start = self.request.GET.get('date_start')
+        dt_end = self.request.GET.get('date_end')
+
+        start_of_week = datetime.strptime(dt_start, "%Y-%m-%d").date()
+        end_of_week = ((datetime.strptime(dt_end, "%Y-%m-%d").date()) + timedelta(days=1))
+        project = Project.objects.get(id=kwargs.get('id'))
+
+        queryset = stand_up_model.objects.filter(date_created__range=[start_of_week, end_of_week], project=project).order_by('-date_created')
+        serializer = ShortStandupProjectSerializer(queryset, many=True)
+
+        return Response(serializer.data, status=200)

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { urlsafe, queryparams } from '../../utils/http.utils';
-import { HISTORY_STANDUP, HISTORY_STANDUP_WEEKLY } from '../../constants/api.constants';
+import { HISTORY_STANDUP, HISTORY_STANDUP_WEEKLY, HISTORY_PROJECT } from '../../constants/api.constants';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 import { ConvertFromNgbDate, FormatDateToString } from '../../utils/datetime.utils'
@@ -105,5 +105,13 @@ export class StandupService {
 
   getReportList() {
     return this.http.get(HISTORY_STANDUP);
+  }
+
+  downloadReport(id){
+    let weekStart = FormatDateToString(this.dateData.dateStart)
+    let weekEnd = FormatDateToString(this.dateData.dateEnd)
+    // add url params
+    let url = `${urlsafe(urlsafe(HISTORY_PROJECT, id), 'report')}${queryparams(this.qparams)}&date_start=${weekStart}&date_end=${weekEnd}`
+    return this.http.get(url)
   }
 }
