@@ -192,6 +192,7 @@ class JSONParser(object):
     def _clean_text(self, text, separator='```'):
         """ clean raw text from slack api
         """
+        text = re.sub(r'(`{3})*\s*(:)\s*(content|reference|hours)\s*(:)\s*', r'\1\2\3\4', text)
         return self._clean_list(
             text.replace("\r\n", "").replace("\n", "").split(separator))
 
