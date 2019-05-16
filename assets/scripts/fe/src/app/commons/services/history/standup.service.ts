@@ -107,7 +107,7 @@ export class StandupService {
     return this.http.get(HISTORY_STANDUP);
   }
 
-  downloadReport(id){
+  downloadReports(id){
     let weekStart = FormatDateToString(this.dateData.dateStart)
     let weekEnd = FormatDateToString(this.dateData.dateEnd)
     // add url params

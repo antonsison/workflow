@@ -99,5 +99,4 @@ class ProjectReport(Query, ViewSet):
 
         queryset = stand_up_model.objects.filter(date_created__range=[start_of_week, end_of_week], project=project).order_by('-date_created')
         serializer = ShortStandupProjectSerializer(queryset, many=True)
-
         return Response(serializer.data, status=200)

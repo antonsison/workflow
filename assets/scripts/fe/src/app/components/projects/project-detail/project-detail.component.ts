@@ -109,7 +109,6 @@ export class ProjectDetailComponent implements OnInit {
       this.standupservice.dateData.dateEnd.setDate(this.standupservice.dateData.dateEnd.getDate() + 1)
       // apply computations to set new start and end week
       this.standupservice.dateData = DateRange(this.standupservice.dateData.dateEnd)
-
       this.updateWeeklyReport()
     }
   }
@@ -207,21 +206,12 @@ export class ProjectDetailComponent implements OnInit {
     this.updateWeeklyReport();
   }
 
-  clicked($event){
-    let weekStart = FormatDateToString(ConvertFromNgbDate(this.fromDate))
-    let weekEnd =  FormatDateToString(ConvertFromNgbDate(this.toDate))
-
-    
+  clicked(){ 
     if (this.standupservice.q.length){
-      console.log(weekStart)
-      console.log(weekEnd)
 
-      this.standupservice.downloadReport(this.state.params.id).subscribe(
+      this.standupservice.downloadReports(this.state.params.id).subscribe(
         data => {
           console.log(data)
-        },
-        error => {
-          console.log(error)
         }
       )
     }
