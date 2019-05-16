@@ -1,5 +1,6 @@
+import { StateService } from '@uirouter/angular';
 import { ContentOnly } from '../../commons/utils/layout.utils';
-import { Disconnect, SlackAuthRedirect } from '../../commons/utils/security.utils';
+import { Disconnect, SlackAuthRedirect, LoggedInUser } from '../../commons/utils/security.utils';
 
 import { LoginComponent } from './login/login.component';
 
@@ -8,7 +9,8 @@ export const PUBLIC_STATES : Object[] = [
     {
       name  : 'login',
       url   : '/login/',
-      views : ContentOnly(LoginComponent)
+      views : ContentOnly(LoginComponent),
+      params: {next: window.location.pathname}
     },
     {
       name    : 'logout',
@@ -19,5 +21,10 @@ export const PUBLIC_STATES : Object[] = [
       name    : 'slackauthredirect',
       url     : '/auth/slack/redirect/:token/',
       onEnter : SlackAuthRedirect
+    },
+    {
+      name    : 'domain',
+      url     : '/',
+      onEnter : LoggedInUser
     }
 ]

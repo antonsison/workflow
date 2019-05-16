@@ -26,7 +26,7 @@ export function Disconnect(t) {
       state = t.router.stateService;
 
   if(auth.authenticated()) auth.rmToken();
-  return state.target('login');
+  return state.target('login', {next: '/dashboard/'});
 }
 
 
@@ -82,5 +82,10 @@ export async function SlackAuthRedirect(t, $state) {
 }
 
 
+export function LoggedInUser(t) {
+  let auth = t.injector().get(AuthService),
+      state = t.router.stateService;
 
-
+  if(auth.authenticated()) return state.target('dashboard');
+  else return state.target('login');
+}
