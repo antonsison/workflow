@@ -14,6 +14,7 @@ export class UserForm {
       last_name    : new FormControl(data.last_name, [Validators.required]),
       birthdate    : new FormControl(data.birthdate, [Validators.required]),
       position     : new FormControl(data.position, [Validators.required]),
+      position_type: new FormControl(data.position_type, [Validators.required]),
       date_started : new FormControl(data.date_started, [Validators.required]),
     })
   }

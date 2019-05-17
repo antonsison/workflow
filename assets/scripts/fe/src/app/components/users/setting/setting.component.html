@@ -51,11 +51,14 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Position type:</label>
-              <select class="form-control">
-                <option>Trainee</option>
-                <option>Full-time</option>
+              <select class="form-control" formControlName="position_type">
+                <option value="0">Management</option>
+                <option value="1">Developer</option>
+                <option value="2">Designer</option>
+                <option value="3">Trainee</option>
+                <option value="4">Staff</option>
               </select>
-              <span [hidden]="form.valid('position')">This field is required.</span>
+              <span [hidden]="form.valid('position_type')">This field is required.</span>
             </div>
           </div>
 
