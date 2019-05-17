@@ -211,12 +211,7 @@ export class ProjectDetailComponent implements OnInit {
 
   clicked(){ 
     if (this.standupservice.q.length){
-      let check:any = []
-      this.standupservice.downloadReports(this.state.params.id).subscribe(
-        data => {
-          downloadFileHanlder(data, 'hello')
-        }
-      )
+      this.standupservice.downloadReports(this.state.params.id)
     }
   }
 

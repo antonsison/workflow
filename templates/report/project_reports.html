@@ -41,43 +41,19 @@
 
 {% for dt in data %}
     <center>
-        <h1> {{dt.user.email}} </h1> 
+        <h1> {{dt.user.full_name}} - {{ dt.date_created }} </h1> 
 
         <table class="w-100 mt-0 pt-0" >
             <tr>
-                <th>Date</th>
                 <th>Done</th>
                 <th>Todo</th> 
                 <th>Blocker</th>
             </tr>
             <tr>
-                <td> {{ dt.date_created }} </td>
-                <td> test </td>
-                <td> test </td>
-                <td> test </td>
+                <td> {% for done in dt.done %} {{ done.content }}, &nbsp {% endfor %} </td>
+                <td> {% for todo in dt.todo %} {{ todo.content }}, &nbsp {% endfor %} </td>
+                <td> {% for blocker in dt.blockers %} {{ blocker.content }}, &nbsp {% endfor %} </td>
             </tr>
-
-            <tr>
-                <td> </td>
-                <td> test </td>
-                <td> test </td>
-                <td> test </td>
-            </tr>
-
-            <tr>
-                <td> </td>
-                <td> test </td>
-                <td> test </td>
-                <td> test </td>
-            </tr>
-
-            <tr>
-                <td> </td>
-                <td> test </td>
-                <td> test </td>
-                <td> test </td>
-            </tr>
-
         </table>
     </center>
 {% endfor %}

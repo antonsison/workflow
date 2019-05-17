@@ -113,6 +113,17 @@ export class StandupService {
     let weekEnd = FormatDateToString(this.dateData.dateEnd)
     // add url params
     let url = `${urlsafe(urlsafe(HISTORY_PROJECT, id), 'report')}${queryparams(this.qparams)}&date_start=${weekStart}&date_end=${weekEnd}`
-    return this.http.get(url, { responseType: 'blob'})
+    
+    // this.http.get(url, { responseType: 'blob'}).subscribe(
+    //   data => {
+    //     downloadFileHanlder(data, 'hello')
+    //   }
+    // )
+
+    this.http.get(url).subscribe(
+      data => {
+        console.log(data)
+      }
+    )
   }
 }

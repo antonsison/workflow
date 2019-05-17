@@ -98,4 +98,5 @@ class ProjectReport(Query, PDFHelper, ViewSet):
         queryset = stand_up_model.objects.filter(date_created__range=[start_of_week, end_of_week], project=project).order_by('-date_created')
         serializer = ShortStandupProjectSerializer(queryset, many=True)
 
-        return self.produce_project_report_pdf_as_a_response(serializer.data)
+        return Response(serializer.data, status=200)
+        #return self.produce_project_report_pdf_as_a_response(serializer.data)
