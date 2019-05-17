@@ -21,3 +21,13 @@ export class User {
     Object.assign(this, data);
   }
 }
+
+export class ShortUser {
+  birthdate   : string = null;
+  email       : string = null;
+  first_name  : string = null;
+  full_name   : string = null;
+  id          : string = null;
+  image       : string = null;
+  last_name   : string = null;
+}
