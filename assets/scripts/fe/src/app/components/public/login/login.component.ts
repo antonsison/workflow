@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private auth  : AuthService,
     private state : StateService,
-    private slack : SlackService
+    private slack : SlackService,
   ) { }
 
   ngOnInit() {
@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
     // initialize the form.
     this.form = new LoginForm(new Login);
 
+    // redirect to dashboard if authenticated
+    if (this.auth.authenticated()) return this.state.go('dashboard');
     console.log(this.slack.config);
   }
 
