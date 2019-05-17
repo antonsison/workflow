@@ -68,8 +68,6 @@ class PDFHelper(object):
                 dt['date_created'] = datetime.datetime.strptime(''.join(dt.get('date_created').rsplit(':', 1)), '%Y-%m-%dT%H:%M:%S.%f%z').date()
             except ValueError:
                 dt['date_created'] = datetime.datetime.strptime(''.join(dt.get('date_created').rsplit(':', 1)), '%Y-%m-%dT%H:%M:%S%z').date()
-            if(len(dt['done']) > len(dt['todo']) & len(dt['blockers'])):
-                dt.update({'c':'3'})
 
         context = {'data': data}
         template = get_template('report/project_reports.html')

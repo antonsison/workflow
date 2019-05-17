@@ -157,10 +157,6 @@ class StandupAdmin(JSONParser, admin.ModelAdmin):
 
 
 admin.site.register(Standup, StandupAdmin)
-admin.site.register(Done)
-admin.site.register(Todo)
-admin.site.register(Blocker)
-
 
 
 
