@@ -95,7 +95,6 @@ class UserSerializer(serializers.ModelSerializer):
     deductions = serializers.SerializerMethodField(read_only=True)
     plans = serializers.SerializerMethodField(read_only=True)
     full_name = serializers.SerializerMethodField(read_only=True)
-    position_type = serializers.CharField(read_only=True)
 
     class Meta:
         model = User
