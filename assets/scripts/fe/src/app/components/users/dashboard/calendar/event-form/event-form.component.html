@@ -52,7 +52,11 @@
           <div class="form-group">
             <label>Frequency:</label>
             <select formControlName="frequency" class="form-control">
-              <option [ngValue]="opt.value" *ngFor="let opt of getFreqOpts()">{{opt.text}}</option>
+              <option value="none">None</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
             </select>
             <!-- <input type="text" formControlName="frequency" class="form-control" /> -->
             <span [hidden]="form.valid('frequency')">This field is required.</span>

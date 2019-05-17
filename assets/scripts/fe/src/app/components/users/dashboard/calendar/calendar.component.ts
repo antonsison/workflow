@@ -163,7 +163,7 @@ export class CalendarComponent implements OnInit {
         const day     = String(date.getDate());
         const mo      = String(date.getMonth() + 1);
         const weekIdx = String(date.getDay());
-        const anyVal = '*';
+        const anyVal  = '*';
 
         const once    = event_date === moment(date).format('YYYY-MM-DD');
         const daily   = freq_day === anyVal && freq_mo === anyVal && freq_week_idx === anyVal;

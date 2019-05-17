@@ -17,7 +17,7 @@ import { UsersService } from 'src/app/commons/services/users/users.service';
 })
 export class EventFormComponent implements OnInit {
   @Input() eventDate     : Date;
-  @Input() eventInstance : { [key: string]: any };
+  @Input() eventInstance : Event;
 
   users        : Array<User>;
   private form : EventForm;
@@ -25,13 +25,17 @@ export class EventFormComponent implements OnInit {
   constructor(
     private feed         : FeedService,
     private usersService : UsersService,
-    public activeModal: NgbActiveModal
+    public activeModal   : NgbActiveModal
   ) {
     this.users = usersService.allUsers;
   }
 
   ngOnInit() {
     this.form = new EventForm(new Event);
+    this.populateForm();
+  }
+
+  private populateForm() {
     // Populate form if `this.eventInstance` is available
     if (this.eventInstance) {
       let { start_time, end_time, participants } = this.eventInstance;
@@ -44,7 +48,7 @@ export class EventFormComponent implements OnInit {
 
       this.form.defaultValue({...this.eventInstance, start_time, end_time, participants_id});
     } else {
-      this.form.defaultValue({ event_date: this.formattedEventDate, frequency: '' });
+      this.form.defaultValue({ event_date: this.formattedEventDate });
     }
   }
 
@@ -98,7 +102,7 @@ export class EventFormComponent implements OnInit {
     const valid = this.form.form.valid;
     if (valid) {
       // this.form.setFrequencyVal();
-      const value = this.form.form.value;
+      const value = this.form.getValue();
       // Submit request base on action
       switch (action) {
         case 'create':
