@@ -218,6 +218,9 @@ export class CalendarComponent implements OnInit {
             break;
         }
 
+        // fetch notification events again
+        this.feed.getNotificationEvents();
+
         // Update `firstWeek` and `weeks` so we would not need
         // to refresh the browser
         this.firstWeek = this._firstWeek();
