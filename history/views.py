@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 from rest_framework.generics import ListAPIView
 
-from utils.mixins import Query, TZ
+from utils.mixins import Query, TZ, PDFHelper
 
 from .serializers import StandupSerializer, ReportSerializer, ShortStandupProjectSerializer, BlockerSerializer
 from .models import Blocker, Standup as stand_up_model
@@ -85,9 +85,7 @@ class ProjectBlockers(Query, ViewSet):
         serializer = BlockerSerializer(Blocker.objects.filter(standup__in=project.standup_set.all(), is_fixed=False), many=True)
         return Response(serializer.data, status=200)
 
-class ProjectReport(Query, ViewSet):
-    
-    serializer_class = ShortStandupProjectSerializer
+class ProjectReport(Query, PDFHelper, ViewSet):
 
     def get(self, *args, **kwargs):
         dt_start = self.request.GET.get('date_start')
@@ -99,4 +97,5 @@ class ProjectReport(Query, ViewSet):
 
         queryset = stand_up_model.objects.filter(date_created__range=[start_of_week, end_of_week], project=project).order_by('-date_created')
         serializer = ShortStandupProjectSerializer(queryset, many=True)
-        return Response(serializer.data, status=200)
+
+        return self.produce_project_report_pdf_as_a_response(serializer.data)

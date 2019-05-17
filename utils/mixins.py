@@ -57,6 +57,17 @@ class PDFHelper(object):
     def produce_payroll_as_an_attachment(self, data):
         html, pdf_details = self.prepare_payroll_processing(data)
         return self._produce_pdf_as_an_attachment(html, pdf_details)
+    
+    def produce_project_report_pdf_as_a_response(self, data):
+        html = self.prepare_project_report_processing(data)
+        return self._produce_pdf_as_a_response(html)
+
+    def prepare_project_report_processing(self, data):
+        context = {'data': data}
+        template = get_template('report/project_reports.html')
+        html = template.render(context)
+
+        return html
 
     def prepare_payroll_processing(self, data):
         employee_name = f"{data.get('user').get('id')}_{data.get('user').get('last_name')}"

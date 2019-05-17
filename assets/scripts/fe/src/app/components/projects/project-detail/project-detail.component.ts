@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { StateService } from '@uirouter/angular';
+import { StateService, any } from '@uirouter/angular';
 import { StandupService } from '../../../commons/services/history/standup.service'
 import { NavService } from '../../../commons/services/utils/nav.service';
 import { ProjectService } from '../../../commons/services/project/project.service'
@@ -11,6 +11,9 @@ import { DateRange, GetPreviousDate, GetMonthFirstLastDate,
 import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 
 import { ProjectDetail } from '../../../commons/models/project-detail.models';
+
+import { downloadFileHanlder } from '../../../commons/utils/file.utils';
+
 
 @Component({
   selector: 'app-project-detail',
@@ -208,15 +211,12 @@ export class ProjectDetailComponent implements OnInit {
 
   clicked(){ 
     if (this.standupservice.q.length){
-
+      let check:any = []
       this.standupservice.downloadReports(this.state.params.id).subscribe(
         data => {
-          console.log(data)
+          downloadFileHanlder(data, 'hello')
         }
       )
-    }
-    else{
-      console.log('no content')
     }
   }
 
