@@ -41,7 +41,7 @@
 						<div class="avatar-xs" *ngIf="user.image"
 							[ngStyle]="{'background-image': 'url(' + user.image + ')'}" data-rjs="3">				
 						</div>
-						<div class="avatar-xs no-photo-pink mr-3" *ngIf="!user.image" data-rjs="3">
+						<div class="avatar-xs no-photo-pink" *ngIf="!user.image" data-rjs="3">
 							{{ user.first_name.charAt(0) }} {{ user.last_name.charAt(0) }}
 						</div>
 					</div>

@@ -2,7 +2,6 @@
     table, th, td {
         border: 1px solid black;
         font-size: 15px;
-        text-align: center;
         padding-top: 10px;
     }
     
@@ -41,19 +40,18 @@
 
 {% for dt in data %}
     <center>
-        <h1> {{dt.user.full_name}} - {{ dt.date_created }} </h1> 
-
+        <h1> {{dt.user.full_name}} - {{ dt.date_created | date:"M d, Y" }} </h1> 
+    </center>
         <table class="w-100 mt-0 pt-0" >
             <tr>
                 <th>Done</th>
                 <th>Todo</th> 
                 <th>Blocker</th>
             </tr>
-            <tr>
-                <td> {% for done in dt.done %} {{ done.content }}, &nbsp {% endfor %} </td>
-                <td> {% for todo in dt.todo %} {{ todo.content }}, &nbsp {% endfor %} </td>
-                <td> {% for blocker in dt.blockers %} {{ blocker.content }}, &nbsp {% endfor %} </td>
+            <tr style="padding:10px" class="text-left">
+                <td> {% for done in dt.done %} <li>{{ done.content }}</li> {% endfor %} </td>
+                <td> {% for todo in dt.todo %} <li>{{ todo.content }}</li> {% endfor %} </td>
+                <td> {% for blocker in dt.blockers %} <li>{{ blocker.content }}</li> {% endfor %} </td>
             </tr>
         </table>
-    </center>
 {% endfor %}

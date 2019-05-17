@@ -114,15 +114,9 @@ export class StandupService {
     // add url params
     let url = `${urlsafe(urlsafe(HISTORY_PROJECT, id), 'report')}${queryparams(this.qparams)}&date_start=${weekStart}&date_end=${weekEnd}`
     
-    // this.http.get(url, { responseType: 'blob'}).subscribe(
-    //   data => {
-    //     downloadFileHanlder(data, 'hello')
-    //   }
-    // )
-
-    this.http.get(url).subscribe(
+    this.http.get(url, { responseType: 'blob'}).subscribe(
       data => {
-        console.log(data)
+        downloadFileHanlder(data, 'hello')
       }
     )
   }
