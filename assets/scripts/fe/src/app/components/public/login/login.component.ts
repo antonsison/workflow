@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService, UrlService } from '@uirouter/angular';
+import { StateService } from '@uirouter/angular';
 
 import { Login } from '../../../commons/models/login.models';
 import { LoginForm } from '../../../commons/forms/login.forms';
@@ -19,8 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private auth  : AuthService,
     private state : StateService,
-    private slack : SlackService,
-    private url   : UrlService
+    private slack : SlackService
   ) { }
 
   ngOnInit() {
@@ -42,7 +41,8 @@ export class LoginComponent implements OnInit {
           // redirect the user to the last page
           // he/she tried to access before logging in
           try {
-            var redirectUrl = this.url.match({path: this.state.params.next}).rule.state.name;
+            // gets the first matched url
+            var redirectUrl = this.state.get().filter(state => state.$$state().url.exec(this.state.params.next)).shift().name;
             if (redirectUrl != 'login') this.state.go(redirectUrl);
             else this.state.go('dashboard');
           } catch (error) {
