@@ -113,10 +113,10 @@ export class StandupService {
     let weekEnd = FormatDateToString(this.dateData.dateEnd)
     // add url params
     let url = `${urlsafe(urlsafe(HISTORY_PROJECT, id), 'report')}${queryparams(this.qparams)}&date_start=${weekStart}&date_end=${weekEnd}`
-    
+    let filename = `Stand-up Reports ${ weekStart }-${ weekEnd }`
     this.http.get(url, { responseType: 'blob'}).subscribe(
       data => {
-        downloadFileHanlder(data, 'hello')
+        downloadFileHanlder(data, filename)
       }
     )
   }
