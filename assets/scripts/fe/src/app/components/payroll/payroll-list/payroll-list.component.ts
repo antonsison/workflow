@@ -77,8 +77,18 @@ export class PayrollListComponent implements OnInit {
         this.payrollservice.sendPayrollReport(selectedPayrollId)
         // upon finish execution bind sendint to false so user can
         // use sendPDF and downloadPDF
-        .then(resp => { this.sending = false; })
-        .catch(err => { this.sending = false; console.log(err) });
+        .then(resp => { 
+          this.sending = false;
+          selectedPayrollId.forEach (id => {
+            const data = {'is_sent': true, 'date_sent': new Date}
+            this.payrollservice.put(id, data).subscribe()
+            this.payrollservice.list().subscribe(
+              data => {
+                this.payrollservice.plist = data
+              }
+            )
+          })
+        }) .catch(err => { this.sending = false; console.log(err) });
       }
     }
   }

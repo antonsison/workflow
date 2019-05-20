@@ -4,6 +4,7 @@ from .views import Payroll, PayrollReport
 urlpatterns = [
     path('', Payroll.as_view({
         'get': 'filter',
+        'put': 'put'
     }), name="payroll-list"),
     
     path('<int:id>/', Payroll.as_view({

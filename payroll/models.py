@@ -23,6 +23,7 @@ class Payroll(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
 
     is_sent = models.BooleanField(default=False)
+    date_sent = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f"({self.id}) {self.user}"
