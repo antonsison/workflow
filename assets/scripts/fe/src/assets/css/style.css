@@ -8657,16 +8657,13 @@ form input:not([type='radio']) {
   display: inline-block;
   height: 2rem;
   width: 2rem; }
-
-.custom-day.focused {
-  background-color: #e6e6e6; }
-
-.custom-day.range, .custom-day:hover {
-  background-color: #0275d8;
-  color: white; }
-
-.custom-day.faded {
-  background-color: rgba(2, 117, 216, 0.5); }
+  .custom-day.focused {
+    background-color: #e6e6e6; }
+  .custom-day.range, .custom-day:hover {
+    background-color: #0275d8;
+    color: white; }
+  .custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5); }
 
 .search-filter {
   position: absolute;
