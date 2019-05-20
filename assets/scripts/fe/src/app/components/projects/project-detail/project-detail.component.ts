@@ -12,8 +12,6 @@ import {NgbDate, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 
 import { ProjectDetail } from '../../../commons/models/project-detail.models';
 
-import { downloadFileHanlder } from '../../../commons/utils/file.utils';
-
 
 @Component({
   selector: 'app-project-detail',

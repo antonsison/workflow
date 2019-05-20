@@ -5,6 +5,8 @@ import { NavService } from '../../../commons/services/utils/nav.service';
 import { FeedService } from '../../../commons/services/utils/feed.service';
 import { ServerService } from '../../../commons/services/auth/server.service';
 
+import { ProjectService } from '../../../commons/services/project/project.service'
+import { ProjectDetail } from '../../../commons/models/project-detail.models';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +22,8 @@ export class DashboardComponent implements OnInit {
     private feed     : FeedService,
     private state    : StateService,
     private server   : ServerService,
-    private ref      : ChangeDetectorRef
+    private ref      : ChangeDetectorRef,
+    private projectservice : ProjectService,
   ) {
     // nav configuration
     // TODO: this sucks!. find a better solution
@@ -45,6 +48,12 @@ export class DashboardComponent implements OnInit {
     this.feed.getNotificationPendingIssues();
     // load the calendar events data.
     this.feed.getCalendarEvents();
+
+    this.projectservice.getProjects().subscribe(
+      data => {
+        this.projectservice.projects = data
+      }
+    )
   }
 
   @HostListener('scroll', ['$event']) 

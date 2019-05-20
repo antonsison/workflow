@@ -278,22 +278,22 @@
         <div class="stat-section-title">
           <a href="">
             <i class="far fa-anchor"></i>
-            <span>You have 2 on going projects</span>
+            <span>You have {{projectservice.projects.length}} on going projects</span>
           </a>
           
         </div>
-        <div class="stat-pane-item d-flex justify-content-between align-items-center">
+        <div *ngFor="let proj of projectservice.projects" class="stat-pane-item d-flex justify-content-between align-items-center">
           <div class="stat-section-details mb-2">
-            <a href="" class="project-name">#cl-Helpdesk</a>
+            <a uiSref="project-detail" [uiParams]="{id:proj.id}" uiSrefActive="active" class="project-name">{{proj.name}}</a>
           </div>
-          <small class="text-muted">456 hours total</small>
+          <small class="text-muted">{{proj.total_hours}} hours total</small>
         </div>
-        <div class="stat-pane-item d-flex justify-content-between align-items-center">
+        <!--<div class="stat-pane-item d-flex justify-content-between align-items-center">
           <div class="stat-section-details mb-2">
             <a href="" class="project-name">#cl-Design</a>
           </div>
           <small class="text-muted">45 hours total</small>
-        </div>
+        </div> -->
       </div>
 
     </div>

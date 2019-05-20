@@ -9136,7 +9136,7 @@ form input:not([type='radio']) {
   overflow-y: scroll;
   position: relative;
   border-left: solid 1px #f0f0f0;
-  padding-bottom: 2rem; }
+  padding-bottom: 5.3rem; }
   .stat-pane::-webkit-scrollbar {
     margin-left: 1rem;
     width: 0.5rem;
