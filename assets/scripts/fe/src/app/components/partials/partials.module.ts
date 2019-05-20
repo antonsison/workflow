@@ -7,6 +7,7 @@ import { DirectivesModule } from '../../commons/directives/directives.module';
 
 import { NavigationComponent } from './navigation/navigation.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     UIRouterModule,
     DirectivesModule
   ],
-  declarations: [NavigationComponent, SideMenuComponent]
+  exports: [SearchComponent],
+  declarations: [NavigationComponent, SideMenuComponent, SearchComponent]
 })
 export class PartialsModule { }

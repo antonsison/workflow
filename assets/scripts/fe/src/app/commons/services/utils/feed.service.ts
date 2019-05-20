@@ -21,7 +21,7 @@ import { ServerService } from '../auth/server.service';
 })
 export class FeedService {
   public showFilter:boolean = false
-  
+
   public q = [];
   public nEvents: any;
   public pendingIssues: any;
