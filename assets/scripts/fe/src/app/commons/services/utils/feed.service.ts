@@ -20,6 +20,8 @@ import { ServerService } from '../auth/server.service';
   providedIn: 'root'
 })
 export class FeedService {
+  public showFilter:boolean = false
+  
   public q = [];
   public nEvents: any;
   public pendingIssues: any;
