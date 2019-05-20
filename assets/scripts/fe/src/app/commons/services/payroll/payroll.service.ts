@@ -33,6 +33,12 @@ export class PayrollService {
     return this.http.get(PAYROLL + queryparams(params));
   }
 
+  /* Update Payroll
+  */
+ put(id, data) {
+   return this.http.put(urlsafe(PAYROLL, id), data);
+ }
+
   getList() {
     this.list()
       .subscribe(resp=>{ this.plist = resp; });

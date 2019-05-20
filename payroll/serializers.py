@@ -44,7 +44,7 @@ class PlanSerializer(serializers.ModelSerializer):
 class PayrollSerializer(serializers.ModelSerializer):
     """ payroll serializer
     """
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
     total_deduction = serializers.SerializerMethodField(read_only=True)
     gross_pay = serializers.SerializerMethodField(read_only=True)
     net_pay = serializers.SerializerMethodField(read_only=True)
@@ -68,7 +68,8 @@ class PayrollSerializer(serializers.ModelSerializer):
             'date_updated',
             'is_sent',
             'benefits',
-            'plans'
+            'plans',
+            'date_sent'
         )
 
     def get_total_deduction(self, instance):

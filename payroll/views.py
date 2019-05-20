@@ -22,6 +22,16 @@ class Payroll(Query, ViewSet):
         )
         return Response(serializer.data, status=200)
 
+    def put(self, *args, **kwargs):
+        serializer = self.serializer_class(
+            data=self.request.data, 
+            instance=self._get(self._model, **kwargs)
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=200)
+
     def filter(self, *args, **kwargs):
         serializer = self.serializer_class(
             instance=self._filter(

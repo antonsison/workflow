@@ -22,7 +22,8 @@
               <input *ngIf="!payrollservice.selectedPayroll.has(p.id)" type="checkbox" name="" class="mr-3 inputcheck" (click)="onToggle($event, p)" >
             <div class="">
               <h6 class="section-title mb-1">{{ p.payroll_code }}</h6>
-              <small class="text-muted">{{ p.date_created | date: '(EEE) MMM d, y' }}</small>
+              <small class="text-muted" *ngIf="p.is_sent">{{ p.date_sent | date: '(EEE) MMM d, y' }}</small>
+              <small class="text-muted" *ngIf="!p.is_sent">{{ p.date_created | date: '(EEE) MMM d, y' }}</small>
             </div>
           </div>
           <div class="text-right">
