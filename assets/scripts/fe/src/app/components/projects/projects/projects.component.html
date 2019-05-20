@@ -11,121 +11,28 @@
         
         <div class="project-item d-flex align-items-start justify-content-between" *ngFor="let project of projectservice.projects">
           <div class="d-flex align-items-start">
-            <div class="avatar-sm no-photo-pink mr-3">D</div>
+            <div class="avatar-sm no-photo-pink mr-3">{{ project.name.charAt(0) }}</div>
             <div class="">
               <a uiSref="project-detail" [uiParams]="{id:project.id}" uiSrefActive="active" class="h5">{{ project.name }}</a>
-              <p class="text-muted my-1 small">30 hours of 40/week</p>
+              <p class="text-muted my-1 small">{{ project.weekly_hours }} hours of 40/week</p>
               <div class="hour-meter">
-                <span class="hour-spent" width="80%"></span>
+                <span class="hour-spent"[ngStyle]="{'width': project.weekly_hours / 40 * 100 + '%'}"></span>
               </div>
             </div>
           </div>
-          <div class="team-members d-flex">
-            <div class="avatar-xs" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs more ml-2">
-              +7
-            </div>
-          </div>
-        </div>
-
-        <div class="project-item d-flex align-items-start justify-content-between">
-          <div class="d-flex align-items-start">
-            <div class="avatar-sm no-photo-pink mr-3">D</div>
-            <div class="">
-              <a href="" class="h5">Designs</a>
-              <p class="text-muted my-1 small">30 hours of 40/week</p>
-              <div class="hour-meter">
-                <span class="hour-spent" width="80%"></span>
+          <div class="mb-3" *ngIf="project.users.length">
+            <div class="team-members d-flex">
+              <div *ngFor="let user of project.users | slice: 0:5">
+                <div class="avatar-xs" *ngIf="user.image"
+                  [ngStyle]="{'background-image': 'url(' + user.image + ')'}" data-rjs="3">				
+                </div>
+                <div class="avatar-xs no-photo-pink mr-3" *ngIf="!user.image" data-rjs="3">
+                  {{ user.first_name.charAt(0) }} {{ user.last_name.charAt(0) }}
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="team-members d-flex">
-            <div class="avatar-xs" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs more ml-2">
-              +7
-            </div>
-          </div>
-        </div>
-        <div class="project-item d-flex align-items-start justify-content-between">
-          <div class="d-flex align-items-start">
-            <div class="avatar-sm no-photo-success mr-3">S</div>
-            <div class="">
-              <a href="" class="h5">Saltstack</a>
-              <p class="text-muted my-1 small">30 hours of 40/week</p>
-              <div class="hour-meter">
-                <span class="hour-spent" width="80%"></span>
+              <div class="avatar-xs more ml-2" *ngIf="project.users.length > 5">
+              +{{ project.users.length - 5 }}
               </div>
-            </div>
-          </div>
-          <div class="team-members d-flex">
-            <div class="avatar-xs" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs more ml-2">
-              +7
-            </div>
-          </div>
-        </div>
-        <div class="project-item d-flex align-items-start justify-content-between">
-          <div class="d-flex align-items-start">
-            <div class="avatar-sm no-photo-primary mr-3">Z</div>
-            <div class="">
-              <a href="" class="h5">Zumbacruise</a>
-              <p class="text-muted my-1 small">No activities for the week</p>
-            </div>
-          </div>
-          <div class="team-members d-flex">
-            <div class="avatar-xs" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs more ml-2">
-              +7
-            </div>
-          </div>
-        </div>
-        <div class="project-item d-flex align-items-start justify-content-between">
-          <div class="d-flex align-items-start">
-            <div class="avatar-sm no-photo-orange mr-3">H</div>
-            <div class="">
-              <a href="" class="h5">HelpDesk</a>
-              <p class="text-muted my-1 small">No activities for the week</p>
-            </div>
-          </div>
-          <div class="team-members d-flex">
-            <div class="avatar-xs" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs ml-2" style="background-image: url('assets/images/tamara-bellis-401355-unsplash.jpg');" data-rjs="3">
-            </div>
-            <div class="avatar-xs more ml-2">
-              +7
             </div>
           </div>
         </div>
