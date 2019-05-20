@@ -10,11 +10,14 @@ from users.models import User
 from users.serializers import ShortUserSerializer
 from history.models import Standup
 
-class ProjectSerializer(serializers.ModelSerializer):
+from utils.mixins import TZ
+
+class ProjectSerializer(serializers.ModelSerializer, TZ):
     """ project serializer
     """
     total_hours = serializers.SerializerMethodField()
     users = serializers.SerializerMethodField()
+    weekly_hours = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -26,7 +29,8 @@ class ProjectSerializer(serializers.ModelSerializer):
             'date_created',
             'date_updated',
             'total_hours',
-            'users'
+            'users',
+            'weekly_hours'
         )
     
     def get_total_hours(self, obj):
@@ -44,4 +48,10 @@ class ProjectSerializer(serializers.ModelSerializer):
                 test_list.append(stand.user)
         serializer = ShortUserSerializer(test_list, many=True)
         return serializer.data
-        
+
+    def get_weekly_hours(self, obj):
+        today = datetime.strptime(datetime.today().__str__(), "%Y-%m-%d %H:%M:%S.%f").date()
+        start, end = self.dt_range(today.__str__())
+        stand_up = Standup.objects.filter(project=obj, date_created__range=[start, end])
+        total = sum([hours.total_hours for hours in stand_up])
+        return total
