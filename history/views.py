@@ -1,6 +1,7 @@
 from itertools import chain
 from datetime import datetime, timedelta
 
+from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -12,21 +13,11 @@ from utils.mixins import Query, TZ, PDFHelper
 
 from .serializers import StandupSerializer, ReportSerializer, ShortStandupProjectSerializer, BlockerSerializer, SearchSerializer
 from .models import Blocker, Standup as stand_up_model
-
 from .paginations import WeeklyReportsPagination
 
 from accounting.models import Project
 
 
-
-#
-from accounting.serializers import ProjectSerializer
-from django.contrib.postgres.search import SearchVector, SearchRank, SearchQuery
-from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Q
-from .serializers import DoneSerializer, TodoSerializer
-from .models import Done, Todo
-#
 class Standups(Query, ViewSet):
     """ daily standups endpoint that receives report
         from our slack workplace (SLACK API)
@@ -144,48 +135,3 @@ class SearchAll(ListAPIView):
         )
 
         return instance
-        
-# class SearchAll(ViewSet):
-
-#     def get(self, *args, **kwargs):
-#         #import pdb; pdb.set_trace()
-#         content = self.request.GET.get('content')
-        
-#         # vector = SearchVector('done__content', 'todo__content', 'project__name', 'project__description')
-#         # query = SearchQuery(content)
-#         #test = Project.objects.annotate(search=SearchVector('name', 'description'),).filter(search=content)
-#         #test = stand_up_model.objects.annotate(search=SearchVector('project__name', 'project__description'),).filter(search=content)
-#         #test = stand_up_model.objects.annotate(search=SearchQuery(content))
-#         #test = stand_up_model.objects.annotate(rank=SearchRank(vector, query, distinct=True)).order_by('-rank')
-#         #testing =  Project.objects.filter(Q(name__icontains=content) | Q(description__icontains=content)).distinct()
-#         test = sorted(chain(
-#                Project.objects.filter(name__icontains=content).distinct(),
-#                 stand_up_model.objects.filter(Q(done__content__icontains=content) | Q(todo__content__icontains=content) | Q(blocker__content__icontains=content)).distinct()
-#             ),
-#             key=lambda instance: instance.date_created,
-#             reverse=True,
-#         )
-
-#         testing =  Project.objects.filter(name__icontains=content).order_by('-date_created').distinct()
-#         test =  stand_up_model.objects.filter(Q(done__content__icontains=content) | Q(todo__content__icontains=content) | Q(blocker__content__icontains=content)).order_by('-date_created').distinct()
-#         #test = stand_up_model.objects.filter(done__content__icontains=content) | stand_up_model.objects.filter(todo__content__icontains=content) | stand_up_model.objects.filter(blocker__content__icontains=content) 
-#         serial = ProjectSerializer(testing, many=True)
-#         serializer = ReportSerializer(test, many=True)
-        
-#         # test3 =  Blocker.objects.filter(content__icontains=content)
-#         # serializer3 = BlockerSerializer(test3, many=True)
-#         # test1 = Done.objects.filter(content__icontains=content)
-#         # serializer1 = DoneSerializer(test1, many=True)
-#         # test2 = Todo.objects.filter(content__icontains=content)
-#         # serializer2 = TodoSerializer(test2, many=True)
-
-#         dictionary = {
-#             # 'expected': {
-#             #     'done': serializer1.data,
-#             #     'todo': serializer2.data,
-#             #     'blocker': serializer3.data
-#             # },
-#             'projects': serial.data,
-#             'standup': serializer.data
-#         }
-#         return Response(dictionary, status=200)

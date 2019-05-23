@@ -21,9 +21,6 @@ urlpatterns = [
     path('project/<int:id>/blockers/', ProjectBlockers.as_view({
         'get':'get'
     }), name="project-blockers"),
-
-    # path('search/', SearchAll.as_view({
-    #     'get':'get'
-    # }), name="search")
+    
     path('search/', SearchAll.as_view(), name="search")
 ]
