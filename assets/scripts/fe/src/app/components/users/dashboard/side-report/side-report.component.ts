@@ -5,7 +5,7 @@ import { FeedService } from '../../../../commons/services/utils/feed.service';
 
 import { StandupService } from '../../../../commons/services/history/standup.service';
 import { Standup } from '../../../../commons/models/history.models';
-
+import { SearchService } from '../../../../commons/services/utils/search.service'
 
 @Component({
   selector: 'app-side-report',
@@ -19,7 +19,8 @@ export class SideReportComponent implements OnInit {
   constructor(
     private state   : StateService,
     private feed    : FeedService,
-    private history : StandupService
+    private history : StandupService,
+    private searchservice : SearchService
   ) { }
 
   ngOnInit() {
@@ -28,24 +29,32 @@ export class SideReportComponent implements OnInit {
     // IMPORTANT: `this.open` should be set to true otherwise
     // redirecting to this page will not work
     setTimeout(()=> { this.open = true; }, 20);
-
     
-    
-
-    if(this.state.params.cardId){
-      // enable `StateService.noreload` so that the weekly report list
-      // will not reload when this popup is closed.
-      this.history.noreload = true;
-      this.history.getReport(this.state.params.cardId)
-      .subscribe(resp => {
-        this.report = new Standup(resp);
-      });
+    if(!this.state.params.content)
+    {
+      if(this.state.params.cardId){
+        // enable `StateService.noreload` so that the weekly report list
+        // will not reload when this popup is closed.
+        this.history.noreload = true;
+        this.history.getReport(this.state.params.cardId)
+        .subscribe(resp => {
+          this.report = new Standup(resp);
+        });
+      }
+      else{
+        // enable `FeedService.noreload` so that the feedlist
+        // will not reload when this popup is closed.
+        this.feed.noreload = true;
+        this.history.getReport(this.state.params.id)
+        .subscribe(resp => {
+          this.report = new Standup(resp);
+        });
+      }
     }
     else{
-      // enable `FeedService.noreload` so that the feedlist
-      // will not reload when this popup is closed.
-      this.feed.noreload = true;
-      this.history.getReport(this.state.params.id)
+      this.searchservice.noReload = true;
+      this.state.params.content = this.state.params.content.trim().replace(/\s/g, '-')
+      this.history.getReport(this.state.params.cardId)
       .subscribe(resp => {
         this.report = new Standup(resp);
       });
@@ -65,11 +74,17 @@ export class SideReportComponent implements OnInit {
       this.open = false;
       // setTimout is only used for the animation effect.
       // this idea is not the best but it works.
-      if(this.state.params.cardId){
-        setTimeout(()=> { this.state.go('project-detail', {id:this.state.params.id}); }, 300);
+      if(!this.state.params.content)
+      {
+        if(this.state.params.cardId){
+          setTimeout(()=> { this.state.go('project-detail', {id:this.state.params.id}); }, 300);
+        }
+        else{
+          setTimeout(()=> { this.state.go('dashboard'); }, 300);
+        }
       }
       else{
-        setTimeout(()=> { this.state.go('dashboard'); }, 300);
+        setTimeout(()=> { this.state.go('search', {content:this.state.params.content}); }, 300);
       }
     }
   }

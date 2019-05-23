@@ -21,24 +21,22 @@ export class SearchResultComponent implements OnInit {
    }
 
   ngOnInit() {
-    // remove spacing characters from url
-    this.state.params.content = this.state.params.content.trim().replace(/-/g, ' ')
-    // get searched data
-    this.searchservice.search(this.state.params.content)
+    if ((!this.searchservice.noReload && this.state.$current.name !== 'search-report') || 
+    (this.state.$current.name === 'search-report' && this.searchservice.search_result.length < 1)) 
+    {
+      // remove spacing characters from url
+      this.state.params.content = this.state.params.content.trim().replace(/-/g, ' ')
+      // get searched data
+      this.searchservice.search(this.state.params.content)
+    }
+    else{
+      this.searchservice.noReload = false;
+    }
   }
 
   orderBy($event, orderByFilter) {
     // set filter value
-     this.orderByFilter = orderByFilter
-
-    // if(orderByFilter == "Newest"){
-    //   // order array based on date created ascending
-    //   this.sortObjectbyDate(this.searchservice.search_result)
-    // }
-    // else{
-    //   // order array based on date created descending
-    //   this.reverseSortObjectbyDate(this.searchservice.search_result)
-    // }
+    this.orderByFilter = orderByFilter
     this.order()
   }
 
@@ -90,7 +88,7 @@ export class SearchResultComponent implements OnInit {
     // it handles the call to the backend when the scroll
     // reach its max height.
     let cHeight = event.target.scrollHeight;
-    let scrollheight = event.target.scrollTop;
+    this.searchservice.scrollHeight = event.target.scrollTop;
 
     // offset height. this is the sum of the margin/interval
     // of each element inside the `cHeight`. can change based
@@ -100,7 +98,8 @@ export class SearchResultComponent implements OnInit {
     let maxHeight = cHeight - (1108 + 100);
 
     //if(this.searchservice.scrollHeight >= maxHeight) {
-    if(scrollheight >= maxHeight) {
+      
+    if(this.searchservice.scrollHeight >= maxHeight) {
       // load more searched result once target height is reached
       this.searchservice.loadMoreSearchedResult(this.state.params.content)
       this.order()

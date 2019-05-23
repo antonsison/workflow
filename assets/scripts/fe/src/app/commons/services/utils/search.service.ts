@@ -13,6 +13,7 @@ export class SearchService {
   // boolean for all data loaded and currently fetching data
   public allLoaded:boolean = false;
   public fetching:boolean = false;
+  public noReload:boolean = false;
   // get the total number of objects
   public result_count:number = 0;
   // get the paginated search result
@@ -23,6 +24,8 @@ export class SearchService {
   public qparams = {
     page: 1
   };
+
+  public scrollHeight:number;
 
   constructor(
     private http: HttpClient,

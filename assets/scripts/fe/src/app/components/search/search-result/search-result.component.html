@@ -1,5 +1,5 @@
 <div class="center-section feed-container section-extend">
-  <section class="feed-section" (scroll)="scrollWeeklyReport($event)" >
+  <section class="feed-section" (scroll)="scrollWeeklyReport($event)" [scrollTop]="searchservice.scrollHeight">
     <h2 class="section-title">“{{state.params.content}}”</h2>
     <div class="d-flex justify-content-between align-items-center">
       <p class="text-muted mb-0">
@@ -27,8 +27,8 @@
           <div class="report-info">
           <div class="d-flex align-items-center justify-content-between mb-3">
             <div class="d-flex align-items-center">
-            <a uiSref="project-detail-report" 
-            [uiParams]="{id: instance.instance.project.id,cardId: instance.instance.id}">{{ instance.instance.project.name }}</a>
+            <a uiSref="search-report" 
+            [uiParams]="{id: instance.instance.project.id,cardId: instance.instance.id,content: state.params.content}">{{ instance.instance.project.name }}</a>
             <span class="badge badge__report">Report</span>
             <span class="timestamp"> {{ instance.instance.date_created | date:'MMM d, h:mm a' }}</span>
             </div>
