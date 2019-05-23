@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { StateService, any } from '@uirouter/angular';
+import { StateService } from '@uirouter/angular';
 import { StandupService } from '../../../commons/services/history/standup.service'
 import { NavService } from '../../../commons/services/utils/nav.service';
 import { ProjectService } from '../../../commons/services/project/project.service'
@@ -207,7 +207,7 @@ export class ProjectDetailComponent implements OnInit {
     this.updateWeeklyReport();
   }
 
-  clicked(){ 
+  downloadReports(){ 
     if (this.standupservice.q.length){
       this.standupservice.downloadReports(this.state.params.id)
     }

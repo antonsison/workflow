@@ -9,17 +9,17 @@
     </ol>
 
     <div class="search-input input-group">
-      <div class="input-group-prepend" (click)="clicked($event)">
-        <span class="input-group-text filter-toggle">Show Filters</span>
-      </div>
-      <input type="text" name="" class="form-control" placeholder="Search anything">
-      <div class="input-group-append">
-        <span class="input-group-text">
-          <a href="" class="filter-toggle">
-            <i class="fal fa-search ml-1"></i>
-          </a>
-        </span>
-      </div>
+        <div class="input-group-prepend" >
+          <a href="#" class="input-group-text filter-toggle" (click)="openFilter($event)">Show Filters</a>
+        </div>
+        <input type="text" [(ngModel)]="searchservice.searched" class="form-control" placeholder="Search anything">
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <a href="" (click)="search($event)" class="filter-toggle">
+              <i class="fal fa-search ml-1"></i>
+            </a>
+          </span>
+        </div>
     </div>
   </div>
   <div class="profile-dropdown" ngbDropdown>

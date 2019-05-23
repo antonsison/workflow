@@ -10,7 +10,7 @@ from users.serializers import ShortUserSerializer
 
 from accounting.serializers import ProjectSerializer
 
-from .mixins import DailyStandup
+from .mixins import DailyStandup, SearchFeedParser
 from .models import Standup, Done, Todo, Blocker
 
 
@@ -234,7 +234,6 @@ class ShortStandupProjectSerializer(serializers.ModelSerializer):
             'id',
             'date_created',
             'date_updated',
-            'project',
             'user',
             'total_hours',
             'done',
@@ -264,3 +263,15 @@ class ShortStandupProjectSerializer(serializers.ModelSerializer):
     
     def get_finished_issues(self, obj):
         return Blocker.objects.filter(standup=obj, is_fixed=True).count()
+
+class SearchSerializer(SearchFeedParser, serializers.Serializer):
+    """ feed serializer
+    """
+    instance = serializers.SerializerMethodField()
+    instance_type = serializers.SerializerMethodField()
+
+    def get_instance(self, obj):
+        return self.serialize(obj)
+
+    def get_instance_type(self, obj):
+        return obj._meta.model_name

@@ -1,0 +1,108 @@
+<div class="center-section feed-container section-extend">
+    <section class="feed-section">
+      <h2 class="section-title">“{{state.params.content}}”</h2>
+      <div class="d-flex justify-content-between align-items-center">
+        <p *ngIf="searchservice.allLoaded" class="text-muted mb-0">
+        {{searchservice.search_result.length}}  results found</p>
+
+        <div ngbDropdown class="d-inline-block">
+          <label class="section-title">Sort by:</label>
+          <button class="btn btn-outline-primary ml-1" id="dropdownBasic1" ngbDropdownToggle> {{ title }} </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button (click)="testing($event, 'Newest')" ngbDropdownItem>Newest</button>
+            <button (click)="testing($event, 'Oldest')" ngbDropdownItem>Oldest</button>
+          </div>
+        </div>
+      </div>
+      <!-- FEED CARDS -->
+      <div *ngIf="searchservice.allLoaded">
+
+        <p *ngIf="searchservice.search_result.length === 0" 
+        class="text-center text-muted">No matches found.</p>
+      	<div class="feed-card card" *ngFor="let instance of searchservice.search_result">
+					<div class="card-content--container" *ngIf="instance.instance_type == 'project'">
+            <a uiSref="project-detail" [uiParams]="{id:instance.instance.id}" uiSrefActive="active" class="h5"> {{instance.instance.name}} </a>
+          </div>
+
+          <div class="card-content--container" *ngIf="instance.instance_type == 'standup'">
+						<div class="d-flex">
+							<div class="report-info">
+							<div class="d-flex align-items-center justify-content-between mb-3">
+								<div class="d-flex align-items-center">
+								<a uiSref="project-detail-report" 
+                [uiParams]="{id: instance.instance.project.id,cardId: instance.instance.id}">{{ instance.instance.project.name }}</a>
+								<span class="badge badge__report">Report</span>
+								<span class="timestamp"> {{ instance.instance.date_created | date:'MMM d, h:mm a' }}</span>
+								</div>
+								<div class="feed-summary">
+									<p class="hours badge" [innerHtml]="instance.instance.total_hours | timeformat"></p>
+								</div>
+							</div>
+							<div class="report-content">
+								<small class="report-type">Done</small>
+								<div class="d-flex">
+								<p class="report-hint">{{ instance.instance.done | getornull: "0" }}</p>
+								<span *ngIf="instance.instance.done.length > 0" class="content-count">+{{ instance.instance.done.length }}</span>
+								</div>
+							</div>
+							<div class="report-content">
+								<small class="report-type">Todo</small>
+								<div class="d-flex">
+								<p class="report-hint">{{ instance.instance.todo | getornull: "0" }}</p>
+								<span *ngIf="instance.instance.done.length > 0" class="content-count">+{{ instance.instance.todo.length }}</span>
+								</div>
+							</div>
+
+							
+							<span *ngIf="instance.instance.blockers.length === 0" class="no-issue">No Issues</span>
+							<span *ngIf="instance.instance.blockers.length > 0" class="with-issues">
+              {{ instance.instance.pending_issues }} pending issue{{ instance.instance.blockers | pluralize }}</span>
+							
+							</div>
+						</div>
+						
+						<div *ngIf="instance.instance.blockers.length > 0" class="details pt-2">
+						<div class="d-flex justify-content-between">
+							
+						</div>
+						<ol class="pl-3 details-list">
+							<li class="issue-details" [ngClass]="{'resolved': b.is_fixed, 'unresolved': !b.is_fixed}" *ngFor="let b of instance.instance.blockers">
+							<p>{{ b.content }}</p>
+							<a [href]="b.reference | sanitizeurl" [target]="_blank"><small>{{ b.reference }}</small></a>
+							</li>
+						</ol>
+						</div>
+						
+					</div>
+        </div>
+      </div>
+    </section>
+    <aside class="stat-pane">
+      <div class="p-5">
+        <div class="d-flex justify-content-between">
+          <p class="section-title">Saved Search</p>
+          <a href="" class="pane-title">Clear</a>
+        </div>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href="" class="text-muted">sadipscing</a>
+          </li>
+          <li class="mb-2">
+            <a href="" class="text-muted">nonumy</a>
+          </li>
+          <li class="mb-2">
+            <a href="" class="text-muted">invidunt ut labore</a>
+          </li>
+          <li class="mb-2">
+            <a href="" class="text-muted">sadipscing</a>
+          </li>
+          <li class="mb-2">
+            <a href="" class="text-muted">nonumy</a>
+          </li>
+          <li class="mb-2">
+            <a href="" class="text-muted">invidunt ut labore</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>

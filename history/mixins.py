@@ -101,6 +101,23 @@ class DailyStandup(JSONParser, SlackAPI):
             self._construct_report(todo),
             self._construct_report(blockers),
         )
+
+class SearchFeedParser(object):
+    """ helper class that parse and manage
+        feed items.
+    """
+    def __init__(self, *args, **kwargs):
+        return super(SearchFeedParser, self).__init__(*args, **kwargs)
+
+    def serialize(self, instance, many=False):
+        # avoid circular import
+        from .serializers import ReportSerializer
+        from accounting.serializers import ProjectSerializer
+
+        return {
+            'project': ProjectSerializer,
+            'standup': ReportSerializer
+        }[instance._meta.model_name](instance, many=many).data
             
 
 

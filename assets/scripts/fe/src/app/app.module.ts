@@ -11,6 +11,7 @@ import { PublicModule } from './components/public/public.module';
 import { UsersModule } from './components/users/users.module';
 import { ProjectsModule } from './components/projects/projects.module';
 import { PayrollModule } from './components/payroll/payroll.module';
+import { SearchModule } from './components/search/search.module'
 
 import { TokenService } from './commons/services/interceptors/token.service';
 import { APP_STATES } from './commons/utils/app.states';
@@ -32,7 +33,8 @@ import { DatePipe } from '@angular/common';
     PublicModule,
     UsersModule,
     ProjectsModule,
-    PayrollModule
+    PayrollModule,
+    SearchModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenService, multi: true },
