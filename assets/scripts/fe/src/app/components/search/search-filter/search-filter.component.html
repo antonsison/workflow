@@ -18,24 +18,25 @@
               <div style="width: 160px">
                 <ul class="list-group list-group-flush">
                   <button type="button" class="list-group-item list-group-item-action"
-                  (click)="FilterByDays($event, 0)">
+                  (click)="FilterByDays($event, 0)" [disabled]="search.fetching">
                   Today</button>
                   <button type="button" class="list-group-item list-group-item-action"
-                  (click)="FilterByDays($event, 1)">
+                  (click)="FilterByDays($event, 1)" [disabled]="search.fetching">
                   Yesterday</button>
                   <button type="button" class="list-group-item list-group-item-action"
-                  (click)="FilterByDays($event,6)">
+                  (click)="FilterByDays($event,6)" [disabled]="search.fetching">
                   Last 7 Days</button>
                   <button type="button" class="list-group-item list-group-item-action"
-                  (click)="FilterByDays($event,30)">
+                  (click)="FilterByDays($event,30)" [disabled]="search.fetching">
                   Last 30 Days</button>
                   <button type="button" class="list-group-item list-group-item-action"
-                  (click)="FilterByMonth($event,0)">
+                  (click)="FilterByMonth($event,0)" [disabled]="search.fetching">
                   This Month</button>
                   <button type="button" class="list-group-item list-group-item-action"
-                  (click)="FilterByMonth($event,1)">
+                  (click)="FilterByMonth($event,1)" [disabled]="search.fetching">
                   Last Month</button>
-                  <button type="button" class="list-group-item list-group-item-action">
+                  <button type="button" class="list-group-item list-group-item-action"
+                  [disabled]="search.fetching">
                   Custom Range</button>
                 </ul>
               </div> 
@@ -70,62 +71,6 @@
       </div>
     </div>
   </div>
-  <!--<div class="form-check pl-0 mb-5">
-
-    <input type="checkbox" *ngIf="DisableProjCheck" 
-    (click)="ProjectCheckboxFilter()">
-    <input type="checkbox" *ngIf="!DisableProjCheck" 
-    (click)="ProjectCheckboxFilter()" checked>
-
-    <label class="text-medium">Projects</label>
-    
-    <ul class="list-unstyled">
-      <li *ngFor="let projCheck of search.projectTemplate">
-        <div class="form-check">
-          <input type="checkbox" (click)="testClick($event, projCheck)"
-          *ngIf="!projCheck.checked" [disabled]="DisableProjCheck">
-          <input type="checkbox" (click)="testClick($event, projCheck)"
-          *ngIf="projCheck.checked" checked>
-          <label> {{  projCheck.name }} </label>
-        </div>
-      </li>
-      <li>
-        <div class="pl-3">
-          <label class="section-title d-block" [ngClass]="{'text-muted': DisableProjCheck}">Selected Projects</label>
-          <div ngbDropdown class="d-inline-block" autoClose="outside">
-            <button class="selectpicker form-control" [ngClass]="{'text-muted': true}" [disabled]="DisableProjCheck"
-              ngbDropdownToggle>Nothing Selected</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem (click)="selectAllProject($event)">All Projects<span *ngIf="checkedAll" class="far fa-check"></span></button>
-              <button *ngFor="let proj of project.projects" ngbDropdownItem (click)="selectProject($event, proj)"> {{ proj.name }} 
-              <span *ngIf="search.selectedProject.has(proj.id)" class="far fa-check"></span></button>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-  
-  <div class="form-check pl-0 pb-5">
-
-    <input type="checkbox" *ngIf="DisableStatus" 
-    (click)="TaskCheckboxFilter()">
-    <input type="checkbox" *ngIf="!DisableStatus" 
-    (click)="TaskCheckboxFilter()" checked>
-
-    <label class="text-medium">Task Status</label>
-    <ul class="list-unstyled">
-      <li *ngFor="let taskCheck of search.taskTemplate">
-        <div class="form-check">
-          <input type="checkbox" *ngIf="!taskCheck.checked" 
-          [disabled]="DisableStatus" (click)="testClick($event, taskCheck)">
-          <input type="checkbox" *ngIf="taskCheck.checked"
-          (click)="testClick($event, taskCheck)" checked>
-          <label> {{taskCheck.name}} </label>
-        </div>
-      </li>
-    </ul>
-  </div>-->
   <div class="d-flex justify-content-center mt-5">
     <button class="btn-light btn mr-4" (click)="clear($event)">Clear</button>
     <button class="btn-primary btn filter-toggle" (click)="close($event)">Close</button>

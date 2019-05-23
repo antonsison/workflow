@@ -36,26 +36,13 @@ export class NavigationComponent implements OnInit {
 
   openFilter($event){
     $event.preventDefault();
-    // this.feed.showFilter = !this.feed.showFilter
     setTimeout(()=> { 
       this.feed.showFilter = !this.feed.showFilter;
-      // if(this.feed.showFilter && this.project.projects.length == 0){
-      //   this.project.getProjects().subscribe(
-      //     data => {
-      //       this.project.projects = data;
-      //     }
-      //   )
-      // };
     }, 50);
   }
 
   search($event){
     $event.preventDefault();
-    // console.log(this.searchservice.searched)
-    // let test = this.searchservice.searched.replace(' ', '-')
-    // console.log(test)
-    // console.log(this.searchservice.searched)
-    console.log(this.searchservice.searched.trim().replace(/\s/g, '-'))
     this.state.go('search', {content:this.searchservice.searched.trim().replace(/\s/g, '-')});
   }
 }
